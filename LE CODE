@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 public class Robot extends SampleRobot {
-	RobotDrive robot;
+    RobotDrive robot;
     Joystick stick;
     Joystick xbox;
     Encoder encoder;	
@@ -35,9 +35,9 @@ public class Robot extends SampleRobot {
     boolean limitPressed2 = false;
     boolean minarmlimit = false;
     boolean maxarmlimit = false;
-	double x = 0;
-	SendableChooser autoChooser;
-	Defines.AUTOS autoMethod;
+    double x = 0;
+    SendableChooser autoChooser;
+    Defines.AUTOS autoMethod;
 
     public Robot() {
     	robot = new RobotDrive(0, 1);
@@ -173,21 +173,21 @@ public class Robot extends SampleRobot {
     public void operatorControl() {
 
     	while (isOperatorControl() && isEnabled()) {
-    		double throttle = stick.getRawAxis(Defines.STICK_THROTTLE);
-    		double leftaxis = xbox.getRawAxis(Defines.LEFT_AXIS);
-    		double rightaxis = xbox.getRawAxis(Defines.RIGHT_AXIS);
+    	    double throttle = stick.getRawAxis(Defines.STICK_THROTTLE);
+       	    double leftaxis = xbox.getRawAxis(Defines.LEFT_AXIS);
+    	    double rightaxis = xbox.getRawAxis(Defines.RIGHT_AXIS);
             bottomscrewlimit = limit.get(); 
             minarmlimit = limit3.get();
             maxarmlimit = limit4.get();
-    		x = (-throttle + 1) / 2;
+    	    x = (-throttle + 1) / 2;
     		
             robot.arcadeDrive(stick.getY() * x, -stick.getX() * x);
 
             //limitPressed2 = limit2.get();
             /*double angle = gyro.getAngle();
-    		SmartDashboard.putNumber("angle", angle);
-    		double distance = encoder.getDistance();
-    		SmartDashboard.putNumber("distance", distance);*/
+    	      SmartDashboard.putNumber("angle", angle);
+    	      double distance = encoder.getDistance();
+    	      SmartDashboard.putNumber("distance", distance);*/
             //System.out.println("limitPressed=" + limitPressed); //Read the RoboRIO log for some values.
             //System.out.println("limitPressed2=" + limitPressed2);
             //System.out.println("limitPressed3=" + limitPressed3);

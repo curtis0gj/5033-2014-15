@@ -5,7 +5,7 @@ public class Defines {
 	public static final double SCREW_OFF = 0.0;
 	public static final double ARM_SPEED = 0.2;
 	public static final double ARM_OFF = 0.0;
-	public static final double AUTO_TIMEBREAKS = 0.5;
+	public static final double AUTO_TIMEBREAKS = 0.2;
 	
 	public static final int STICK_THROTTLE = 2;
 	public static final int LEFT_AXIS = 1;
@@ -14,8 +14,8 @@ public class Defines {
 	public static final int RIGHT_TRIGGER = 6;
 	
 	public enum AUTOS {
-		AUTO_NOTHING,
-		AUTO_TWO,
+		AUTO_TWOBLUE,
+		AUTO_TWORED,
 		AUTO_ONE,
 		AUTO_MOVE
 	}

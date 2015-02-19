@@ -7,7 +7,12 @@ import edu.wpi.first.wpilibj.Timer;
 
 public class Auto {
 	private static void wait(Robot r, double waittime) {
-		while
+		while(true) {
+			if(!.risAutonomous() || !r.isEnabled())
+				return;
+				Timer.delay();
+				return;
+		}
 	
 	private static void reset(Robot r) {
 		r.robot.drive(0, 0);

@@ -24,7 +24,6 @@ public class Auto {
 	
 	private static void move(Robot r, int d) {
 		while(true) {
-			//Drive to auto zone.
     		double distance = r.encoder.get();
     		double angle = r.gyro.getAngle();
 			if(!r.isAutonomous() || !r.isEnabled())
@@ -54,7 +53,6 @@ public class Auto {
 
 	private static void turn(Robot r, int deg) {
 		while(true) {
-    		//Turn 90, stop and wait one second.
     		double angle = r.gyro.getAngle();
     		if(!r.isAutonomous() || !r.isEnabled())
     			return;
@@ -67,7 +65,6 @@ public class Auto {
 	}
 	private static void turn2(Robot r, int deg) {
 		while(true) {
-    		//Turn 90, stop and wait one second.
     		double angle = r.gyro.getAngle();
     		if(!r.isAutonomous() || !r.isEnabled())
     			return;
@@ -81,7 +78,6 @@ public class Auto {
 	private static void arms(Robot r, double sec) {
 		double ArmTimeR = Timer.getFPGATimestamp();
     	while(true) {
-    		//Close arms for two seconds and stop, wait one.
     		if(!r.isAutonomous() || !r.isEnabled())
     			return;
     		Boolean maxarmlimit = r.limit4.get();

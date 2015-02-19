@@ -10,7 +10,7 @@ public class Auto {
 		while(true) {
 			if(!.risAutonomous() || !r.isEnabled())
 				return;
-				Timer.delay();
+				r.Timer.delay(waittime); //r or just timer?
 				return;
 		}
 	
@@ -110,21 +110,31 @@ public class Auto {
 			break;
 		case AUTO_ONE:
 			lift(r, 3.5);
+			wait(r, 0.5);
         	turn(r, 70);
+        	wait(r, 0.5);
         	move(r, 2000);
 			break;
 		case AUTO_TWORED:
 			lift(r, 3.5);
+			wait(r, 0.5);
 			move(r, 450);
+			wait(r, 0.5);
 			arms(r, 2);
+			wait(r, 0.5);
 			turn(r, 70);
+			wait(r, 0.5);
 			move(r, 2000);
 			break;
 		case AUTO_TWOBLUE:
 			lift(r, 3.5);
+			wait(r, 0.5);
 			move(r, 450);
+			wait(r, 0.5);
 			arms(r, 2);
+			wait(r, 0.5);
 			turn2(r, -70); // - or + 70?
+			wait(r, 0.5);
 			move(r, 2000);
 			break;
 		}

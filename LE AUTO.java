@@ -6,6 +6,9 @@ import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Timer;
 
 public class Auto {
+	private static void wait(Robot r, double waittime) {
+		while
+	
 	private static void reset(Robot r) {
 		r.robot.drive(0, 0);
 		r.gyro.reset();

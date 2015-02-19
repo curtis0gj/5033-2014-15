@@ -77,7 +77,7 @@ public class Auto {
 	}
 	private static void arms(Robot r, double sec) {
 		double ArmTimeR = Timer.getFPGATimestamp();
-    	while(true) {
+    		while(true) {
     		if(!r.isAutonomous() || !r.isEnabled())
     			return;
     		Boolean maxarmlimit = r.limit4.get();
@@ -102,14 +102,14 @@ public class Auto {
 	public static void run(Robot r, AUTOS autoMode) {
 		switch(autoMode) {
 		case AUTO_MOVE:
-    		move(r, 3000);
+    			move(r, 3000);
 			break;
 		case AUTO_ONE:
 			lift(r, 3.5);
 			wait(r, 0.5);
-        	turn(r, 70);
-        	wait(r, 0.5);
-        	move(r, 2000);
+        		turn(r, 70);
+        		wait(r, 0.5);
+        		move(r, 2000);
 			break;
 		case AUTO_TWORED:
 			lift(r, 3.5);

@@ -10,7 +10,7 @@ public class Auto {
 		while(true) {
 			if(!.risAutonomous() || !r.isEnabled())
 				return;
-				r.Timer.delay(waittime); //r or just timer?
+			r.Timer.delay(waittime); //r or just timer?
 				return;
 		}
 	

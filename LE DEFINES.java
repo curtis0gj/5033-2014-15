@@ -5,8 +5,6 @@ public class Defines {
 	public static final double SCREW_OFF = 0.0;
 	public static final double ARM_SPEED = 0.2;
 	public static final double ARM_OFF = 0.0;
-	public static final double AUTO_TIMEBREAKS = 0.2;
-
 	public static final int STICK_THROTTLE = 2;
 	public static final int LEFT_AXIS = 1;
 	public static final int RIGHT_AXIS = 5;

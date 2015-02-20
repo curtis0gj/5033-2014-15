@@ -7,10 +7,11 @@ import edu.wpi.first.wpilibj.Timer;
 public class Auto {
 	private static void wait(Robot r, double waittime) {
 		while (true) {
-			if (!.risAutonomous() || !r.isEnabled()) return;
+			if (!r.isAutonomous() || !r.isEnabled()) return;
 			r.Timer.delay(waittime); //r or just timer?
 			return;
 		}
+	}
 		private static void reset(Robot r) {
 			r.robot.drive(0, 0);
 			r.gyro.reset();
@@ -44,7 +45,7 @@ public class Auto {
 				}
 			}
 		}
-		private static void turn(Robot r, int deg) {
+		private static void turn(Robot r, double deg) {
 			while (true) {
 				double angle = r.gyro.getAngle();
 				if (!r.isAutonomous() || !r.isEnabled()) return;
@@ -70,7 +71,7 @@ public class Auto {
 			double ArmTimeR = Timer.getFPGATimestamp();
 			while (true) {
 				if (!r.isAutonomous() || !r.isEnabled()) return;
-				Boolean maxarmlimit = r.limit4.get();
+				boolean maxarmlimit = r.limit4.get();
 				if (ArmTimeR + sec > Timer.getFPGATimestamp()) {
 					r.armmotor.set(Defines.ARM_SPEED);
 					r.leftarmwheel.set(Relay.Value.kForward);

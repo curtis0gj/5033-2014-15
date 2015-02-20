@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.Timer;
 public class Auto {
 	private static void wait(Robot r, double waittime) {
 		while (true) {
+			Timer.delay(0.02);
 			if (!r.isAutonomous() || !r.isEnabled()) return;
 			r.Timer.delay(waittime); //r or just timer?
 			return;
@@ -19,8 +20,9 @@ public class Auto {
 			r.screwmotor1.set(Defines.SCREW_OFF);
 			r.screwmotor2.set(Defines.SCREW_OFF);
 		}
-		private static void move(Robot r, int d) {
+		private static void move(Robot r, double d) {
 			while (true) {
+				Timer.delay(0.02);
 				double distance = r.encoder.get();
 				double angle = r.gyro.getAngle();
 				if (!r.isAutonomous() || !r.isEnabled()) return;
@@ -35,6 +37,7 @@ public class Auto {
 		private static void lift(Robot r, double sec) {
 			double ScrewTime1 = Timer.getFPGATimestamp();
 			while (true) {
+				Timer.delay(0.02);
 				if (!r.isAutonomous() || !r.isEnabled()) return;
 				if (ScrewTime1 + sec > Timer.getFPGATimestamp()) {
 					r.screwmotor1.set(Defines.SCREW_SPEED);

@@ -56,7 +56,7 @@ public class Auto {
 				}
 			}
 		}
-		private static void turn2(Robot r, int deg) {
+		private static void turn2(Robot r, double deg) {
 			while (true) {
 				double angle = r.gyro.getAngle();
 				if (!r.isAutonomous() || !r.isEnabled()) return;

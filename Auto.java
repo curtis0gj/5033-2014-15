@@ -34,7 +34,7 @@ public class Auto {
 			if(Math.abs(deg - deltaAngle) < MAX_ERROR) {
 				break;
 			} else {
-				robot.drive(0, deltaAngle * kp_rotate);
+				r.robot.drive(0, deltaAngle * kp_rotate);
 			}
 			Timer.delay(0.02);
 		}
@@ -48,30 +48,6 @@ public class Auto {
 			r.robot.drive(-0.25, angle * r.Kp);
 			//r.robot.drive(-0.40, 0);
 			if (distance < -d) {
-				reset(r);
-				return;
-			}
-			Timer.delay(0.02);
-		}
-	}
-	private static void turnRight(Robot r, double deg) {
-		while (true) {
-			double angle = r.gyro.getAngle();
-			if (!r.isAutonomous() || !r.isEnabled()) return;
-			r.robot.drive(-.40, -1);
-			if (angle > deg) {
-				reset(r);
-				return;
-			}
-			Timer.delay(0.02);
-		}
-	}
-	private static void turnLeft(Robot r, double deg) {
-		while (true) {
-			double angle = r.gyro.getAngle();
-			if (!r.isAutonomous() || !r.isEnabled()) return;
-			r.robot.drive(-.40, 1);
-			if (angle < deg) {
 				reset(r);
 				return;
 			}

@@ -26,14 +26,15 @@ public class Auto {
 				reset(r);
 				break;
 			}
+			Timer.delay(0.02);
 	}
+}
 	private static void forwardDrive(Robot r, double d) {
 		while (true) {
 			double distance = r.encoder.get();
 			double angle = r.gyro.getAngle();
 			if (!r.isAutonomous() || !r.isEnabled()) return;
 			r.robot.drive(-0.25, angle * r.Kp);
-			Timer.delay(0.02);
 			//r.robot.drive(-0.40, 0);
 			if (distance < -d) {
 				reset(r);

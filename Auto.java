@@ -27,8 +27,7 @@ public class Auto {
 	
 	double kp_rotate = 0.01;
 	double MAX_ERROR = 5;
-	
-	public static void turn(double deg) {
+	public static void turn(Robot r, double deg) {
 		while(true) {
 			double deltaAngle = angleError(deg, gyro.getAngle());
 			if(Math.abs(deg - deltaAngle) < MAX_ERROR) {
@@ -39,7 +38,6 @@ public class Auto {
 			Timer.delay(0.02);
 		}
 	}
-	
 	private static void forwardDrive(Robot r, double d) {
 		while (true) {
 			double distance = r.encoder.get();

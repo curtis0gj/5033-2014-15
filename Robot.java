@@ -29,7 +29,6 @@ public class Robot extends SampleRobot {
 	public DigitalInput limit;
 	public DigitalInput limit2;
 	public DigitalInput limit3;
-	public DigitalInput limit4;
 	public double Kp = 0.03;
 	public boolean bottomScrewLimit = false;
 	public boolean minArmLimit = false;
@@ -47,9 +46,8 @@ public class Robot extends SampleRobot {
 		leftArmWheel = new Relay(1);
 		rightArmWheel = new Relay(2);
 		limit = new DigitalInput(4);
-		limit2 = new DigitalInput(5);
-		limit3 = new DigitalInput(6);
-		limit4 = new DigitalInput(7);
+		limit2 = new DigitalInput(6);
+		limit3 = new DigitalInput(7);
 		screwMotor1 = new Victor(4);
 		screwMotor2 = new Victor(5);
 		armMotor = new Victor(6);
@@ -87,8 +85,8 @@ public class Robot extends SampleRobot {
 			double leftAxis = xbox.getRawAxis(Defines.LEFT_AXIS);
 			double rightAxis = xbox.getRawAxis(Defines.RIGHT_AXIS);
 			bottomScrewLimit = limit.get();
-			minArmLimit = limit3.get();
-			maxArmLimit = limit4.get();
+			minArmLimit = limit2.get();
+			maxArmLimit = limit3.get();
 			x = (-throttle + 1) / 2;
 
 			robot.arcadeDrive(stick.getY() * x, -stick.getX() * x);

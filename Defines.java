@@ -11,10 +11,11 @@ public class Defines {
 	public static final int LEFT_TRIGGER = 5;
 	public static final int RIGHT_TRIGGER = 6;
 
-	public enum AUTOS {
-		AUTO_TWOBLUE,
-		AUTO_TWORED,
-		AUTO_ONE,
-		AUTO_MOVE
+	public enum Autos {
+		AUTO_GRAB_TWO_BINS_BLUE_SIDE,
+		AUTO_GRAB_TWO_BINS_RED_SIDE,
+		AUTO_GRAB_ONE_BIN_BLUE_SIDE,
+		AUTO_GRAB_ONE_BINE_RED_SIDE,
+		AUTO_MOVE_TO_ZONE
 	}
 }

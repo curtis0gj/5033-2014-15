@@ -12,8 +12,8 @@ public class Auto {
 		r.robot.drive(0, 0);
 		r.gyro.reset();
 		r.encoder.reset();
-		r.screwmotor1.set(Defines.SCREW_OFF);
-		r.screwmotor2.set(Defines.SCREW_OFF);
+		r.screwMotor1.set(Defines.SCREW_OFF);
+		r.screwMotor2.set(Defines.SCREW_OFF);
 	}
 	public static void angleError(double setpointDegressZeroToThreeSixty, double experimentalDegrees) {
 		double err = setpointDegressZeroToThreeSixty - experimentalDegrees; // 0 TO 360!
@@ -59,8 +59,8 @@ public class Auto {
 		while (true) {
 			if (!r.isAutonomous() || !r.isEnabled()) return;
 			if (ScrewTime1 + sec > Timer.getFPGATimestamp()) {
-				r.screwmotor1.set(Defines.SCREW_SPEED);
-				r.screwmotor2.set(Defines.SCREW_SPEED);
+				r.screwMotor1.set(Defines.SCREW_SPEED);
+				r.screwMotor2.set(Defines.SCREW_SPEED);
 			} else {
 				reset(r);
 				break;
@@ -96,15 +96,15 @@ public class Auto {
 		double armTimer = Timer.getFPGATimestamp();
 		while (true) {
 			if (!r.isAutonomous() || !r.isEnabled()) return;
-			boolean maxarmlimit = r.limit4.get();
+			boolean maxArmLimit = r.limit4.get();
 			if (ArmTimeR + sec > Timer.getFPGATimestamp()) {
-				r.armmotor.set(Defines.ARM_SPEED);
-				r.leftarmwheel.set(Relay.Value.kForward);
-				r.rightarmwheel.set(Relay.Value.kReverse);
-			} else if (maxarmlimit == true) {
-				r.armmotor.set(Defines.ARM_OFF);
-				r.leftarmwheel.set(Relay.Value.kOff);
-				r.rightarmwheel.set(Relay.Value.kOff);
+				r.armMotor.set(Defines.ARM_SPEED);
+				r.leftArmWheel.set(Relay.Value.kForward);
+				r.rightArmWheel.set(Relay.Value.kReverse);
+			} else if (maxArmLimit == true) {
+				r.armMotor.set(Defines.ARM_OFF);
+				r.leftArmWheel.set(Relay.Value.kOff);
+				r.rightArmWheel.set(Relay.Value.kOff);
 				reset(r);
 				break;
 			} else {

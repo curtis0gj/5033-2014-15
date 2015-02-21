@@ -54,20 +54,6 @@ public class Auto {
 			Timer.delay(0.02);
 		}
 	}
-	private static void liftBin(Robot r, double sec) {
-		double ScrewTime1 = Timer.getFPGATimestamp();
-		while (true) {
-			if (!r.isAutonomous() || !r.isEnabled()) return;
-			if (ScrewTime1 + sec > Timer.getFPGATimestamp()) {
-				r.screwMotor1.set(Defines.SCREW_SPEED);
-				r.screwMotor2.set(Defines.SCREW_SPEED);
-			} else {
-				reset(r);
-				break;
-			}
-			Timer.delay(0.02);
-		}
-	}
 	private static void turnRight(Robot r, double deg) {
 		while (true) {
 			double angle = r.gyro.getAngle();
@@ -88,6 +74,20 @@ public class Auto {
 			if (angle < deg) {
 				reset(r);
 				return;
+			}
+			Timer.delay(0.02);
+		}
+	}
+	private static void liftBin(Robot r, double sec) {
+		double ScrewTime1 = Timer.getFPGATimestamp();
+		while (true) {
+			if (!r.isAutonomous() || !r.isEnabled()) return;
+			if (ScrewTime1 + sec > Timer.getFPGATimestamp()) {
+				r.screwMotor1.set(Defines.SCREW_SPEED);
+				r.screwMotor2.set(Defines.SCREW_SPEED);
+			} else {
+				reset(r);
+				break;
 			}
 			Timer.delay(0.02);
 		}

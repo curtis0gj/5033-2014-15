@@ -6,10 +6,8 @@ import edu.wpi.first.wpilibj.Timer;
 
 public class Auto {
 	private static void wait(Robot r, double waittime) {
-		while (true) {
-			Timer.delay(0.02);
 			if (!r.isAutonomous() || !r.isEnabled()) return;
-			r.Timer.delay(waittime); //r or just timer?
+			Timer.delay(waittime); //r or just timer?
 			return;
 		}
 	}

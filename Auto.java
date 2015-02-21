@@ -27,7 +27,7 @@ public class Auto {
 				break;
 			}
 	}
-	private static void move(Robot r, double d) {
+	private static void forwardDrive(Robot r, double d) {
 		while (true) {
 			double distance = r.encoder.get();
 			double angle = r.gyro.getAngle();
@@ -41,7 +41,7 @@ public class Auto {
 			}
 		}
 	}
-	private static void lift(Robot r, double sec) {
+	private static void liftBin(Robot r, double sec) {
 		double ScrewTime1 = Timer.getFPGATimestamp();
 		while (true) {
 			if (!r.isAutonomous() || !r.isEnabled()) return;
@@ -79,8 +79,8 @@ public class Auto {
 			}
 		}
 	}
-	private static void arms(Robot r, double sec) {
-		double ArmTimeR = Timer.getFPGATimestamp();
+	private static void closeArms(Robot r, double sec) {
+		double armTimer = Timer.getFPGATimestamp();
 		while (true) {
 			if (!r.isAutonomous() || !r.isEnabled()) return;
 			boolean maxarmlimit = r.limit4.get();
@@ -107,40 +107,40 @@ public class Auto {
 				move(r, 3000);
 				break;
 			case AUTO_GRAB_ONE_BIN_RED_SIDE:
-				lift(r, 3.5);
+				liftBin(r, 3.5);
 				wait(r, 0.5);
-				turn(r, 70);
+				turnRight(r, 70); //COULD BE LEFT OR RIGHT I DON'T KNOW!
 				wait(r, 0.5);
-				move(r, 2000);
+				forwardDrive(r, 2000);
 				break;
 			case AUTO_GRAB_ONE_BIN_BLUE_SIDE:
-				lift(r, 3.5);
+				liftBin(r, 3.5);
 				wait(r, 0.5);
-				turn(r, -70);
+				turnLeft(r, -70);  //COULD BE LEFT OR RIGHT I DON'T KNOW!
 				wait(r, 0.5);
-				move(r, 2000);
+				forwardDrive(r, 2000);
 				break;
 			case AUTO_GRAB_TWO_BINS_RED_SIDE:
-				lift(r, 3.5);
+				liftBin(r, 3.5);
 				wait(r, 0.5);
-				move(r, 450);
+				forwardDrive(r, 450);
 				wait(r, 0.5);
-				arms(r, 2);
+				closeArms(r, 2);
 				wait(r, 0.5);
-				turn(r, 70);
+				turnRight(r, 70);  //COULD BE LEFT OR RIGHT I DON'T KNOW!
 				wait(r, 0.5);
-				move(r, 2000);
+				forwardDrive(r, 2000);
 				break;
 			case AUTO_GRAB_TWO_BINS_BLUE_SIDE:
-				lift(r, 3.5);
+				liftBin(r, 3.5);
 				wait(r, 0.5);
-				move(r, 450);
+				forwardDrive(r, 450);
 				wait(r, 0.5);
-				arms(r, 2);
+				closeArms(r, 2);
 				wait(r, 0.5);
-				turn2(r, -70); // - or + 70?
+				turnLeft(r, -70); // - or + 70?  //COULD BE LEFT OR RIGHT I DON'T KNOW!
 				wait(r, 0.5);
-				move(r, 2000);
+				forwardDrive(r, 2000);
 				break;
 		}
 	}

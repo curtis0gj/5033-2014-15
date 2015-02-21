@@ -6,9 +6,7 @@ import edu.wpi.first.wpilibj.Timer;
 
 public class Auto {
 	private static void wait(Robot r, double waittime) {
-		if (!r.isAutonomous() || !r.isEnabled()) return;
 		Timer.delay(waittime); 
-		return;
 	}
 	private static void reset(Robot r) {
 		r.robot.drive(0, 0);
@@ -25,6 +23,8 @@ public class Auto {
 				turnRight(r, 70);
 			} else {
 				turnLeft(r, -70);
+				reset(r);
+				break;
 			}
 	}
 	private static void move(Robot r, double d) {

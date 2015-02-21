@@ -22,3 +22,7 @@
 			Timer.delay(0.02);
 		}
 	}
+	
+	
+				turnLeft(r, -70); 
+				turnRight(r, 70);

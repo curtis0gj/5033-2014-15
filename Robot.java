@@ -21,107 +21,106 @@ public class Robot extends SampleRobot {
 	public Joystick xbox;
 	public Encoder encoder;
 	public Gyro gyro;
-	public Relay leftarmwheel;
-	public Relay rightarmwheel;
-	public Victor screwmotor1;
-	public Victor screwmotor2;
-	public Victor armmotor;
+	public Relay leftArmWheel;
+	public Relay rightArmWheel;
+	public Victor screwMotor1;
+	public Victor screwMotor2;
+	public Victor armMotor;
 	public DigitalInput limit;
 	public DigitalInput limit2;
 	public DigitalInput limit3;
 	public DigitalInput limit4;
 	public double Kp = 0.03;
-	public boolean bottomscrewlimit = false;
-	public boolean limitPressed2 = false;
-	public boolean minarmlimit = false;
-	public boolean maxarmlimit = false;
+	public boolean bottomScrewLimit = false;
+	public boolean minArmLimit = false;
+	public boolean maxArmLimit = false;
 	public double x = 0;
 	public SendableChooser autoChooser;
-	public Defines.AUTOS autoMethod;
-
+	public Defines.Autos autoMethod;
+	
 	public Robot() {
 		robot = new RobotDrive(0, 1);
 		stick = new Joystick(1);
 		xbox = new Joystick(0);
 		gyro = new Gyro(0);
 		encoder = new Encoder(0, 1, false, EncodingType.k4X);
-		leftarmwheel = new Relay(1);
-		rightarmwheel = new Relay(2);
+		leftArmWheel = new Relay(1);
+		rightArmWheel = new Relay(2);
 		limit = new DigitalInput(4);
 		limit2 = new DigitalInput(5);
 		limit3 = new DigitalInput(6);
 		limit4 = new DigitalInput(7);
-		screwmotor1 = new Victor(4);
-		screwmotor2 = new Victor(5);
-		armmotor = new Victor(6);
+		screwMotor1 = new Victor(4);
+		screwMotor2 = new Victor(5);
+		armMotor = new Victor(6);
 		gyro.reset();
 		gyro.initGyro();
 		encoder.setDistancePerPulse(0.3193143);
 		encoder.getDistance();
-
 		autoChooser = new SendableChooser();
-		autoChooser.addDefault("Pick Up Two Blue", Defines.AUTOS.AUTO_TWOBLUE);
-		autoChooser.addObject("Pick Up Two Red", Defines.AUTOS.AUTO_TWORED);
-		autoChooser.addObject("Pick Up One", Defines.AUTOS.AUTO_ONE);
-		autoChooser.addObject("Move Into Autozone", Defines.AUTOS.AUTO_MOVE);
-		SmartDashboard.putData("Auto mode", autoChooser);
+		autoChooser.addDefault("Pick up two bins, blue side.", Defines.Autos.AUTO_GRAB_TWO_BINS_BLUE_SIDE);
+		autoChooser.addObject("Pick up two bins, red side.", Defines.Autos.AUTO_GRAB_TWO_BINS_RED_SIDE);
+		autoChooser.addObject("Pick up one bin, blue side.", Defines.Autos.AUTO_GRAB_ONE_BIN_BLUE_SIDE);
+		autoChooser.addObject("Pick up one bin, red side.", Defines.Autos.AUTO_GRAB_ONE_BIN_RED_SIDE )
+		autoChooser.addObject("Move into the autonomous zone.", Defines.Autos.AUTO_MOVE_TO_ZONE);
+		SmartDashboard.putData("AUTONOMOUS MODES", autoChooser);
 	}
-
-
-
 	public void autonomous() {
-		autoMethod = (Defines.AUTOS) autoChooser.getSelected();
+		autoMethod = (Defines.Autos) autoChooser.getSelected();
 		Auto.run(this, autoMethod);
 
-		if (autoMethod == Defines.AUTOS.AUTO_ONE) {
+		if (autoMethod == Defines.Autos.AUTO_GRAB_ONE_BIN_BLUE_SIDE) {
 			return;
-		} else if (autoMethod == Defines.AUTOS.AUTO_MOVE) {
+		} else if (autoMethod == Defines.Autos.AUTO_GRAB_ONE_BIN_RED_SIDE) {
 			return;
-		} else if (autoMethod == Defines.AUTOS.AUTO_TWORED) {
+		} else if (autoMethod == Defines.Autos.AUTO_MOVE_TO_ZONE) {
 			return;
-		} else if (autoMethod == Defines.AUTOS.AUTO_TWOBLUE) {
+		} else if (autoMethod == Defines.Autos.AUTO_GRAB_TWO_BINS_RED_SIDE) {
+			return;
+		} else if (autoMethod == Defines.Autos.AUTO_GRAB_TWO_BINS_BLUE_SIDE) {
 			return;
 		}
 	}
 	public void operatorControl() {
 		while (isOperatorControl() && isEnabled()) {
 			double throttle = stick.getRawAxis(Defines.STICK_THROTTLE);
-			double leftaxis = xbox.getRawAxis(Defines.LEFT_AXIS);
-			double rightaxis = xbox.getRawAxis(Defines.RIGHT_AXIS);
-			bottomscrewlimit = limit.get();
-			minarmlimit = limit3.get();
-			maxarmlimit = limit4.get();
+			double leftAxis = xbox.getRawAxis(Defines.LEFT_AXIS);
+			double rightAxis = xbox.getRawAxis(Defines.RIGHT_AXIS);
+			bottomScrewLimit = limit.get();
+			minArmLimit = limit3.get();
+			maxArmLimit = limit4.get();
 			x = (-throttle + 1) / 2;
 
 			robot.arcadeDrive(stick.getY() * x, -stick.getX() * x);
 
-			if (-leftaxis > 0.5) {
-				screwmotor1.set(Defines.SCREW_SPEED);
-				screwmotor2.set(Defines.SCREW_SPEED);
-			} else if (leftaxis > 0.5 && bottomscrewlimit == false) {
-				screwmotor1.set(-Defines.SCREW_SPEED);
-				screwmotor2.set(-Defines.SCREW_SPEED);
+			if (-leftAxis > 0.5) {
+				screwMotor1.set(Defines.SCREW_SPEED);
+				screwMotor2.set(Defines.SCREW_SPEED);
+			} else if (leftAxis > 0.5 && bottomScrewLimit == false) {
+				screwMotor1.set(-Defines.SCREW_SPEED);
+				screwMotor2.set(-Defines.SCREW_SPEED);
 			} else {
-				screwmotor1.set(Defines.SCREW_OFF);
-				screwmotor2.set(Defines.SCREW_OFF);
+				screwMotor1.set(Defines.SCREW_OFF);
+				screwMotor2.set(Defines.SCREW_OFF);
 			}
-			if (-rightaxis > 0.5 && maxarmlimit == true) {
-				armmotor.set(Defines.ARM_SPEED);
-			} else if (rightaxis > 0.5 && minarmlimit == true) {
-				armmotor.set(-Defines.ARM_SPEED);
+			if (-rightAxis > 0.5 && maxArmLimit == true) {
+				armMotor.set(Defines.ARM_SPEED);
+			} else if (rightAxis > 0.5 && minArmLimit == true) {
+				armMotor.set(-Defines.ARM_SPEED);
 			} else {
-				armmotor.set(Defines.ARM_OFF);
+				armMotor.set(Defines.ARM_OFF);
 			}
 			if (xbox.getRawButton(Defines.RIGHT_TRIGGER)) {
-				leftarmwheel.set(Relay.Value.kForward);
-				rightarmwheel.set(Relay.Value.kReverse);
+				leftArmWheel.set(Relay.Value.kForward);
+				rightArmWheel.set(Relay.Value.kReverse);
 			} else if (xbox.getRawButton(Defines.LEFT_TRIGGER)) {
-				leftarmwheel.set(Relay.Value.kReverse);
-				rightarmwheel.set(Relay.Value.kForward);
+				leftArmWheel.set(Relay.Value.kReverse);
+				rightArmWheel.set(Relay.Value.kForward);
 			} else {
-				leftarmwheel.set(Relay.Value.kOff);
-				rightarmwheel.set(Relay.Value.kOff);
+				leftArmWheel.set(Relay.Value.kOff);
+				rightArmWheel.set(Relay.Value.kOff);
 			}
+			Timer.delay(0.02);
 		}
 	}
 	public void test() {

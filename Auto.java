@@ -5,11 +5,15 @@ import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Timer;
 
 public class Auto {
+	static Robot r
+	public static void setRobot(Robot rob){
+	 r = rob;
+	}
 	private static void wait(double waitTime) {
 		Timer.delay(waitTime); 
 	}
 	private static void reset() {
-		robot.drive(0, 0);
+		chassis.drive(0, 0);
 		gyro.reset();
 		encoder.reset();
 		screwMotor1.set(Defines.SCREW_OFF);
@@ -24,7 +28,6 @@ public class Auto {
 		}
 		return err;
 	}
-	
 	double kp_rotate = 0.01;
 	double MAX_ERROR = 5;
 	private static void turn(double degree) {
@@ -33,7 +36,7 @@ public class Auto {
 			if(Math.abs(degree - deltaAngle) < MAX_ERROR) {
 				break;
 			} else {
-				robot.drive(0, deltaAngle * kp_rotate);
+				chassis.drive(0, deltaAngle * kp_rotate);
 			}
 			Timer.delay(0.02);
 		}
@@ -43,8 +46,8 @@ public class Auto {
 			double distance = encoder.get();
 			double angle = gyro.getAngle();
 			if (!isAutonomous() || !isEnabled()) return;
-			robot.drive(-0.25, angle * Kp);
-			//robot.drive(-0.40, 0);
+			chassis.drive(-0.25, angle * Kp);
+			//chassis.drive(-0.40, 0);
 			if (distance < -distanceToGo) {
 				reset();
 				return;
@@ -96,14 +99,14 @@ public class Auto {
 			case AUTO_GRAB_ONE_BIN_RED_SIDE:
 				liftBin(3.5);
 				wait(0.5);
-				turn(90); //COULD BE LEFT OR RIGHT I DON'T KNOW!
+				turn(90); //COULD 90 OR 180!
 				wait(0.5);
 				forwardDrive(2000);
 				break;
 			case AUTO_GRAB_ONE_BIN_BLUE_SIDE:
 				liftBin(3.5);
 				wait(0.5);
-				turn(180);  //COULD BE LEFT OR RIGHT I DON'T KNOW!
+				turn(180);  //COULD 90 OR 180!
 				wait(0.5);
 				forwardDrive(2000);
 				break;
@@ -114,7 +117,7 @@ public class Auto {
 				wait(0.5);
 				closeArms(2);
 				wait(0.5);
-				turn(90);  //COULD BE LEFT OR RIGHT I DON'T KNOW!
+				turn(90);  //COULD BE 90 OR 180!
 				wait(0.5);
 				forwardDrive(2000);
 				break;
@@ -125,7 +128,7 @@ public class Auto {
 				wait(0.5);
 				closeArms(2);
 				wait(0.5);
-				turn(180); // - or + 70?  //COULD BE LEFT OR RIGHT I DON'T KNOW!
+				turn(180); //COULD BE 90 OR 180!
 				wait(0.5);
 				forwardDrive(2000);
 				break;

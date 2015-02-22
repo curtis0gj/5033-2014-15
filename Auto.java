@@ -27,10 +27,10 @@ public class Auto {
 	
 	double kp_rotate = 0.01;
 	double MAX_ERROR = 5;
-	public static void turn(Robot r, double deg) {
+	public static void turn(Robot r, double degree) {
 		while(true) {
 			double deltaAngle = angleError(deg, gyro.getAngle());
-			if(Math.abs(deg - deltaAngle) < MAX_ERROR) {
+			if(Math.abs(degree - deltaAngle) < MAX_ERROR) {
 				break;
 			} else {
 				r.robot.drive(0, deltaAngle * kp_rotate);
@@ -52,11 +52,11 @@ public class Auto {
 			Timer.delay(0.02);
 		}
 	}
-	private static void liftBin(Robot r, double seconds) {
+	private static void liftBin(Robot r, double second) {
 		double screwTime = Timer.getFPGATimestamp();
 		while (true) {
 			if (!r.isAutonomous() || !r.isEnabled()) return;
-			if (screwTime + sec > Timer.getFPGATimestamp()) {
+			if (screwTime + second > Timer.getFPGATimestamp()) {
 				r.screwMotor1.set(Defines.SCREW_SPEED);
 				r.screwMotor2.set(Defines.SCREW_SPEED);
 			} else {
@@ -66,12 +66,12 @@ public class Auto {
 			Timer.delay(0.02);
 		}
 	}
-	private static void closeArms(Robot r, double seconds) {
+	private static void closeArms(Robot r, double second) {
 		double armTime = Timer.getFPGATimestamp();
 		while (true) {
 			if (!r.isAutonomous() || !r.isEnabled()) return;
 			boolean maxArmLimit = r.limit4.get();
-			if (armTime + sec > Timer.getFPGATimestamp()) {
+			if (armTime + second > Timer.getFPGATimestamp()) {
 				r.armMotor.set(Defines.ARM_SPEED);
 				r.leftArmWheel.set(Relay.Value.kForward);
 				r.rightArmWheel.set(Relay.Value.kReverse);

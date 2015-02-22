@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 public class Robot extends SampleRobot {
-	public RobotDrive drive;
+	public RobotDrive chassis;
 	public Joystick stick;
 	public Joystick xbox;
 	public Encoder encoder;
@@ -77,7 +77,7 @@ public class Robot extends SampleRobot {
 			maxArmLimit = limit3.get();
 			x = (-throttle + 1) / 2;
 
-			drive.arcadeDrive(stick.getY() * x, -stick.getX() * x);
+			chassis.arcadeDrive(stick.getY() * x, -stick.getX() * x);
 
 			if (-leftAxis > 0.5) {
 				screwMotor1.set(Defines.SCREW_SPEED);

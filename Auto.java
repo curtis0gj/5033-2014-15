@@ -5,8 +5,8 @@ import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Timer;
 
 public class Auto {
-	private static void wait(Robot r, double waittime) {
-		Timer.delay(waittime); 
+	private static void wait(double waitTime) {
+		Timer.delay(waitTime); 
 	}
 	private static void reset(Robot r) {
 		r.robot.drive(0, 0);
@@ -38,25 +38,25 @@ public class Auto {
 			Timer.delay(0.02);
 		}
 	}
-	private static void forwardDrive(Robot r, double d) {
+	private static void forwardDrive(Robot r, double distance) {
 		while (true) {
 			double distance = r.encoder.get();
 			double angle = r.gyro.getAngle();
 			if (!r.isAutonomous() || !r.isEnabled()) return;
 			r.robot.drive(-0.25, angle * r.Kp);
 			//r.robot.drive(-0.40, 0);
-			if (distance < -d) {
+			if (distance < -distance) {
 				reset(r);
 				return;
 			}
 			Timer.delay(0.02);
 		}
 	}
-	private static void liftBin(Robot r, double sec) {
-		double ScrewTime1 = Timer.getFPGATimestamp();
+	private static void liftBin(Robot r, double seconds) {
+		double screwTime = Timer.getFPGATimestamp();
 		while (true) {
 			if (!r.isAutonomous() || !r.isEnabled()) return;
-			if (ScrewTime1 + sec > Timer.getFPGATimestamp()) {
+			if (screwTime + sec > Timer.getFPGATimestamp()) {
 				r.screwMotor1.set(Defines.SCREW_SPEED);
 				r.screwMotor2.set(Defines.SCREW_SPEED);
 			} else {
@@ -66,12 +66,12 @@ public class Auto {
 			Timer.delay(0.02);
 		}
 	}
-	private static void closeArms(Robot r, double sec) {
-		double armTimer = Timer.getFPGATimestamp();
+	private static void closeArms(Robot r, double seconds) {
+		double armTime = Timer.getFPGATimestamp();
 		while (true) {
 			if (!r.isAutonomous() || !r.isEnabled()) return;
 			boolean maxArmLimit = r.limit4.get();
-			if (ArmTimeR + sec > Timer.getFPGATimestamp()) {
+			if (armTime + sec > Timer.getFPGATimestamp()) {
 				r.armMotor.set(Defines.ARM_SPEED);
 				r.leftArmWheel.set(Relay.Value.kForward);
 				r.rightArmWheel.set(Relay.Value.kReverse);

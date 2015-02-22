@@ -67,18 +67,6 @@ public class Robot extends SampleRobot {
 		autoMethod = (Defines.Autos) autoChooser.getSelected();
 		Auto.run(this, autoMethod);
 
-		if (autoMethod == Defines.Autos.AUTO_GRAB_ONE_BIN_BLUE_SIDE) {
-			return;
-		} else if (autoMethod == Defines.Autos.AUTO_GRAB_ONE_BIN_RED_SIDE) {
-			return;
-		} else if (autoMethod == Defines.Autos.AUTO_MOVE_TO_ZONE) {
-			return;
-		} else if (autoMethod == Defines.Autos.AUTO_GRAB_TWO_BINS_RED_SIDE) {
-			return;
-		} else if (autoMethod == Defines.Autos.AUTO_GRAB_TWO_BINS_BLUE_SIDE) {
-			return;
-		}
-	}
 	public void operatorControl() {
 		while (isOperatorControl() && isEnabled()) {
 			double throttle = stick.getRawAxis(Defines.STICK_THROTTLE);

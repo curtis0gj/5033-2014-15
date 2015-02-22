@@ -8,14 +8,14 @@ public class Auto {
 	private static void wait(double waitTime) {
 		Timer.delay(waitTime); 
 	}
-	private static void reset(Robot r) {
-		r.robot.drive(0, 0);
-		r.gyro.reset();
-		r.encoder.reset();
-		r.screwMotor1.set(Defines.SCREW_OFF);
-		r.screwMotor2.set(Defines.SCREW_OFF);
+	private static void reset() {
+		robot.drive(0, 0);
+		gyro.reset();
+		encoder.reset();
+		screwMotor1.set(Defines.SCREW_OFF);
+		screwMotor2.set(Defines.SCREW_OFF);
 	}
-	public static void angleError(double setpointDegressZeroToThreeSixty, double experimentalDegrees) {
+	private static void angleError(double setpointDegressZeroToThreeSixty, double experimentalDegrees) {
 		double err = setpointDegressZeroToThreeSixty - experimentalDegrees; // 0 TO 360!
 		if(err < -180) {
 			err += 360;
@@ -27,107 +27,107 @@ public class Auto {
 	
 	double kp_rotate = 0.01;
 	double MAX_ERROR = 5;
-	public static void turn(Robot r, double degree) {
+	private static void turn(double degree) {
 		while(true) {
 			double deltaAngle = angleError(deg, gyro.getAngle());
 			if(Math.abs(degree - deltaAngle) < MAX_ERROR) {
 				break;
 			} else {
-				r.robot.drive(0, deltaAngle * kp_rotate);
+				robot.drive(0, deltaAngle * kp_rotate);
 			}
 			Timer.delay(0.02);
 		}
 	}
-	private static void forwardDrive(Robot r, double distance) {
+	private static void forwardDrive(double distanceToGo) {
 		while (true) {
-			double distance = r.encoder.get();
-			double angle = r.gyro.getAngle();
-			if (!r.isAutonomous() || !r.isEnabled()) return;
-			r.robot.drive(-0.25, angle * r.Kp);
-			//r.robot.drive(-0.40, 0);
-			if (distance < -distance) {
-				reset(r);
+			double distance = encoder.get();
+			double angle = gyro.getAngle();
+			if (!isAutonomous() || !isEnabled()) return;
+			robot.drive(-0.25, angle * Kp);
+			//robot.drive(-0.40, 0);
+			if (distance < -distanceToGo) {
+				reset();
 				return;
 			}
 			Timer.delay(0.02);
 		}
 	}
-	private static void liftBin(Robot r, double second) {
+	private static void liftBin(double second) {
 		double screwTime = Timer.getFPGATimestamp();
 		while (true) {
-			if (!r.isAutonomous() || !r.isEnabled()) return;
+			if (!isAutonomous() || !isEnabled()) return;
 			if (screwTime + second > Timer.getFPGATimestamp()) {
-				r.screwMotor1.set(Defines.SCREW_SPEED);
-				r.screwMotor2.set(Defines.SCREW_SPEED);
+				screwMotor1.set(Defines.SCREW_SPEED);
+				screwMotor2.set(Defines.SCREW_SPEED);
 			} else {
-				reset(r);
+				reset();
 				break;
 			}
 			Timer.delay(0.02);
 		}
 	}
-	private static void closeArms(Robot r, double second) {
+	private static void closeArms(double second) {
 		double armTime = Timer.getFPGATimestamp();
 		while (true) {
-			if (!r.isAutonomous() || !r.isEnabled()) return;
-			boolean maxArmLimit = r.limit4.get();
+			if (!isAutonomous() || !isEnabled()) return;
+			boolean maxArmLimit = limit4.get();
 			if (armTime + second > Timer.getFPGATimestamp()) {
-				r.armMotor.set(Defines.ARM_SPEED);
-				r.leftArmWheel.set(Relay.Value.kForward);
-				r.rightArmWheel.set(Relay.Value.kReverse);
+				armMotor.set(Defines.ARM_SPEED);
+				leftArmWheel.set(Relay.Value.kForward);
+				rightArmWheel.set(Relay.Value.kReverse);
 			} else if (maxArmLimit == true) {
-				r.armMotor.set(Defines.ARM_OFF);
-				r.leftArmWheel.set(Relay.Value.kOff);
-				r.rightArmWheel.set(Relay.Value.kOff);
-				reset(r);
+				armMotor.set(Defines.ARM_OFF);
+				leftArmWheel.set(Relay.Value.kOff);
+				rightArmWheel.set(Relay.Value.kOff);
+				reset();
 				break;
 			} else {
-				reset(r);
+				reset();
 				break;
 			}
 			Timer.delay(0.02);
 		}
 	}
-	public static void run(Robot r, AUTOS autoMode) {
+	public static void run(AUTOS autoMode) {
 		switch (autoMode) {
 			case AUTO_MOVE_TO_ZONE:
-				move(r, 3000);
+				move(3000);
 				break;
 			case AUTO_GRAB_ONE_BIN_RED_SIDE:
-				liftBin(r, 3.5);
-				wait(r, 0.5);
-				turnRight(r, 70); //COULD BE LEFT OR RIGHT I DON'T KNOW!
-				wait(r, 0.5);
-				forwardDrive(r, 2000);
+				liftBin(3.5);
+				wait(0.5);
+				turn(90); //COULD BE LEFT OR RIGHT I DON'T KNOW!
+				wait(0.5);
+				forwardDrive(2000);
 				break;
 			case AUTO_GRAB_ONE_BIN_BLUE_SIDE:
-				liftBin(r, 3.5);
-				wait(r, 0.5);
-				turnLeft(r, -70);  //COULD BE LEFT OR RIGHT I DON'T KNOW!
-				wait(r, 0.5);
-				forwardDrive(r, 2000);
+				liftBin(3.5);
+				wait(0.5);
+				turn(180);  //COULD BE LEFT OR RIGHT I DON'T KNOW!
+				wait(0.5);
+				forwardDrive(2000);
 				break;
 			case AUTO_GRAB_TWO_BINS_RED_SIDE:
-				liftBin(r, 3.5);
-				wait(r, 0.5);
-				forwardDrive(r, 450);
-				wait(r, 0.5);
-				closeArms(r, 2);
-				wait(r, 0.5);
-				turnRight(r, 70);  //COULD BE LEFT OR RIGHT I DON'T KNOW!
-				wait(r, 0.5);
-				forwardDrive(r, 2000);
+				liftBin(3.5);
+				wait(0.5);
+				forwardDrive(450);
+				wait(0.5);
+				closeArms(2);
+				wait(0.5);
+				turn(90);  //COULD BE LEFT OR RIGHT I DON'T KNOW!
+				wait(0.5);
+				forwardDrive(2000);
 				break;
 			case AUTO_GRAB_TWO_BINS_BLUE_SIDE:
-				liftBin(r, 3.5);
-				wait(r, 0.5);
-				forwardDrive(r, 450);
-				wait(r, 0.5);
-				closeArms(r, 2);
-				wait(r, 0.5);
-				turnLeft(r, -70); // - or + 70?  //COULD BE LEFT OR RIGHT I DON'T KNOW!
-				wait(r, 0.5);
-				forwardDrive(r, 2000);
+				liftBin(3.5);
+				wait(0.5);
+				forwardDrive(450);
+				wait(0.5);
+				closeArms(2);
+				wait(0.5);
+				turn(180); // - or + 70?  //COULD BE LEFT OR RIGHT I DON'T KNOW!
+				wait(0.5);
+				forwardDrive(2000);
 				break;
 		}
 	}

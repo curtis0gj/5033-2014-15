@@ -6,8 +6,8 @@ import edu.wpi.first.wpilibj.Timer;
 
 public class Auto {
 	Robot robot
-	public AutonManager(Robot r){
-	this.robot = r;
+	public Auto(Robot r){
+		this.robot = r;
 	}
 	private void wait(double waitTime) {
 		Timer.delay(waitTime); 

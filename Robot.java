@@ -68,7 +68,7 @@ public class Robot extends SampleRobot {
 	public void autonomous() {
 		autoMethod = (Defines.Autos) autoChooser.getSelected();
 		Auto.run(this, autoMethod);
-
+	}
 	public void operatorControl() {
 		while (isOperatorControl() && isEnabled()) {
 			double throttle = stick.getRawAxis(Defines.STICK_THROTTLE);

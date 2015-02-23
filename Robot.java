@@ -37,7 +37,7 @@ public class Robot extends SampleRobot {
 	public AutonManager autonManager; //PUBLIC OR DOES IT MATTER?
 	
 	public Robot() {
-		drive = new RobotDrive(0, 1);
+		chassis = new RobotDrive(0, 1);
 		stick = new Joystick(1);
 		xbox = new Joystick(0);
 		gyro = new Gyro(0);

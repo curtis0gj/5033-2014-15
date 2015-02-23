@@ -34,7 +34,7 @@ public class Robot extends SampleRobot {
 	public double x = 0;
 	public SendableChooser autoChooser;
 	public Defines.Autos autoMethod;
-	public AutonManager autonManager; //PUBLIC OR DOES IT MATTER?
+	public Auto auto; //PUBLIC OR DOES IT MATTER?
 	
 	public Robot() {
 		chassis = new RobotDrive(0, 1);
@@ -54,7 +54,7 @@ public class Robot extends SampleRobot {
 		gyro.initGyro();
 		encoder.setDistancePerPulse(0.3193143);
 		encoder.getDistance();
-		autonManager = new AutonManager(this);
+		auto = new Auto(this);
 		autoChooser = new SendableChooser();
 		autoChooser.addDefault("Pick up two bins, blue side.", Defines.Autos.AUTO_GRAB_TWO_BINS_BLUE_SIDE);
 		autoChooser.addObject("Pick up two bins, red side.", Defines.Autos.AUTO_GRAB_TWO_BINS_RED_SIDE);

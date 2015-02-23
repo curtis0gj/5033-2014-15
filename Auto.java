@@ -53,6 +53,7 @@ public class Auto {
 	double kp_rotate = 0.01;
 	double MAX_ERROR = 5;
 	private void turn(double degree) {
+		reset();
 		while(true) {
 			double deltaAngle = angleError(deg, gyro.getAngle());
 			if(Math.abs(degree - deltaAngle) < MAX_ERROR) {
@@ -63,7 +64,9 @@ public class Auto {
 			Timer.delay(0.02);
 		}
 	}
+	double kP = 0.035;
 	private void forwardDrive(double distanceToGo) {
+		reset();
 		while (true) {
 			double distance = encoder.get();
 			double angle = gyro.getAngle();

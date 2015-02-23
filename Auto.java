@@ -5,12 +5,31 @@ import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Timer;
 
 public class Auto {
-	Robot robot
+	Robot robot;
+	RobotDrive chassis;
+	DigitalInput limit;
+	DigitalInput limit2;
+	DigitalInput limit3;
+	Gyro gyro;
+	Encoder encoder;
+	Relay leftArmWheel;
+	Relay rightArmWheel;
+	Victor screwMotor1;
+	Victor screwMotor2;
+	Victor armMotor;
 	public Auto(Robot r){
 		this.robot = r;
-		this.chassis = ;
-		this.gyro =;
-		this.encoder =;
+		this.chassis = r.chassis;
+		this.gyro = r.gyro;
+		this.encoder = r.encoder;
+		this.limit = r.limit;
+		this.limit2 = r.limit2;
+		this.limit3 = r.limit3;
+		this.leftArmWheel = r.leftArmWheel;
+		this.rightArmWheel = r.rightArmWheel;
+		this.screwMotor1 = r.screwMotor1;
+		this.screwMotor2 = r.screwMotor2;
+		this.armMotor = r.armMotor
 	}
 	private void wait(double waitTime) {
 		Timer.delay(waitTime); 

@@ -35,7 +35,7 @@ public class Auto {
 		Timer.delay(waitTime); 
 	}
 	private void reset() {
-		chassis.drive(0, 0);
+		chassis.arcadeDrive(0, 0);
 		gyro.reset();
 		encoder.reset();
 		screwMotor1.set(Defines.SCREW_OFF);
@@ -58,7 +58,7 @@ public class Auto {
 			if(Math.abs(degree - deltaAngle) < MAX_ERROR) {
 				break;
 			} else {
-				chassis.drive(0, deltaAngle * kp_rotate);
+				chassis.arcadeDrive(0, deltaAngle * kp_rotate);
 			}
 			Timer.delay(0.02);
 		}
@@ -68,7 +68,7 @@ public class Auto {
 			double distance = encoder.get();
 			double angle = gyro.getAngle();
 			if (!isAutonomous() || !isEnabled()) return;
-			chassis.drive(-0.25, angle * Kp);
+			chassis.arcadeDrive(-0.25, angle * Kp);
 			//chassis.drive(-0.40, 0);
 			if (distance < -distanceToGo) {
 				reset();

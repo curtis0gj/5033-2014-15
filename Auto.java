@@ -9,17 +9,17 @@ public class Auto {
 	public AutonManager(Robot r){
 	this.robot = r;
 	}
-	private static void wait(double waitTime) {
+	private void wait(double waitTime) {
 		Timer.delay(waitTime); 
 	}
-	private static void reset() {
+	private void reset() {
 		chassis.drive(0, 0);
 		gyro.reset();
 		encoder.reset();
 		screwMotor1.set(Defines.SCREW_OFF);
 		screwMotor2.set(Defines.SCREW_OFF);
 	}
-	private static void angleError(double setpointDegressZeroToThreeSixty, double experimentalDegrees) {
+	private void angleError(double setpointDegressZeroToThreeSixty, double experimentalDegrees) {
 		double err = setpointDegressZeroToThreeSixty - experimentalDegrees; // 0 TO 360!
 		if(err < -180) {
 			err += 360;
@@ -30,7 +30,7 @@ public class Auto {
 	}
 	double kp_rotate = 0.01;
 	double MAX_ERROR = 5;
-	private static void turn(double degree) {
+	private void turn(double degree) {
 		while(true) {
 			double deltaAngle = angleError(deg, gyro.getAngle());
 			if(Math.abs(degree - deltaAngle) < MAX_ERROR) {
@@ -41,7 +41,7 @@ public class Auto {
 			Timer.delay(0.02);
 		}
 	}
-	private static void forwardDrive(double distanceToGo) {
+	private void forwardDrive(double distanceToGo) {
 		while (true) {
 			double distance = encoder.get();
 			double angle = gyro.getAngle();
@@ -55,7 +55,7 @@ public class Auto {
 			Timer.delay(0.02);
 		}
 	}
-	private static void liftBin(double second) {
+	private void liftBin(double second) {
 		double screwTime = Timer.getFPGATimestamp();
 		while (true) {
 			if (!isAutonomous() || !isEnabled()) return;
@@ -91,7 +91,7 @@ public class Auto {
 			Timer.delay(0.02);
 		}
 	}
-	public static void run(AUTOS autoMode) {
+	public void run(AUTOS autoMode) {
 		switch (autoMode) {
 			case AUTO_MOVE_TO_ZONE:
 				move(3000);

@@ -71,7 +71,7 @@ public class Auto {
 			double distance = encoder.get();
 			double angle = gyro.getAngle();
 			if (!isAutonomous() || !isEnabled()) return;
-			chassis.arcadeDrive(-0.25, angle * Kp);
+			chassis.arcadeDrive(-0.25, angle * kP);
 			//chassis.drive(-0.40, 0);
 			if (distance < -distanceToGo) {
 				reset();

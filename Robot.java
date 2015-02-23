@@ -76,7 +76,6 @@ public class Robot extends SampleRobot {
 			minArmLimit = limit2.get();
 			maxArmLimit = limit3.get();
 			x = (-throttle + 1) / 2;
-
 			chassis.arcadeDrive(stick.getY() * x, -stick.getX() * x);
 
 			if (-leftAxis > 0.5) {

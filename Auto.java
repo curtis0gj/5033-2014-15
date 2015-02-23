@@ -8,6 +8,9 @@ public class Auto {
 	Robot robot
 	public Auto(Robot r){
 		this.robot = r;
+		this.chassis = ;
+		this.gyro =;
+		this.encoder =;
 	}
 	private void wait(double waitTime) {
 		Timer.delay(waitTime); 

@@ -5,9 +5,9 @@ import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Timer;
 
 public class Auto {
-	static Robot r
-	public static void setRobot(Robot rob){
-	 r = rob;
+	Robot robot
+	public AutonManager(Robot r){
+	this.robot =r;
 	}
 	private static void wait(double waitTime) {
 		Timer.delay(waitTime); 

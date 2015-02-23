@@ -27,7 +27,6 @@ public class Robot extends SampleRobot {
 	public DigitalInput limit;
 	public DigitalInput limit2;
 	public DigitalInput limit3;
-	public double Kp = 0.03;
 	public boolean bottomScrewLimit = false;
 	public boolean minArmLimit = false;
 	public boolean maxArmLimit = false;

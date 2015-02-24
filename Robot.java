@@ -53,7 +53,7 @@ public class Robot extends SampleRobot {
 		gyro.initGyro();
 		encoder.setDistancePerPulse(0.3193143);
 		encoder.getDistance();
-		auto = new Auto();
+		auto = new Auto(this);
 		autoChooser = new SendableChooser();
 		autoChooser.addDefault("Pick up two bins, blue side.", Defines.Autos.AUTO_GRAB_TWO_BINS_BLUE_SIDE);
 		autoChooser.addObject("Pick up two bins, red side.", Defines.Autos.AUTO_GRAB_TWO_BINS_RED_SIDE);
@@ -64,7 +64,7 @@ public class Robot extends SampleRobot {
 	}
 	public void autonomous() {
 		autoMethod = (Defines.Autos) autoChooser.getSelected();
-		auto.run(this, autoMethod);
+		auto.run(autoMethod);
 	}
 	public void operatorControl() {
 		while (isOperatorControl() && isEnabled()) {
@@ -111,3 +111,4 @@ public class Robot extends SampleRobot {
 
 	}
 }
+

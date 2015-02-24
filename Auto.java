@@ -98,7 +98,7 @@ public class Auto {
 			Timer.delay(0.02);
 		}
 	}
-	private static void closeArms(double second) {
+	private void closeArms(double second) {
 		double armTime = Timer.getFPGATimestamp();
 		while (true) {
 			if (!isAutonomous() || !isEnabled()) return;

@@ -123,7 +123,7 @@ public class Auto {
 	public void run(AUTOS autoMode) {
 		switch (autoMode) {
 			case AUTO_MOVE_TO_ZONE:
-				move(3000);
+				forwardDrive(3000);
 				break;
 			case AUTO_GRAB_ONE_BIN_RED_SIDE:
 				liftBin(3.5);
@@ -164,4 +164,3 @@ public class Auto {
 		}
 	}
 }
-

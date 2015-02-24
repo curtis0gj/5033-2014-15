@@ -1,8 +1,12 @@
 package org.usfirst.frc.team5033.robot;
 
-import org.usfirst.frc.team5033.robot.Defines.AUTOS;
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.Relay;
+import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.Victor;
 
 public class Auto {
 	Robot robot;
@@ -29,7 +33,7 @@ public class Auto {
 		this.rightArmWheel = r.rightArmWheel;
 		this.screwMotor1 = r.screwMotor1;
 		this.screwMotor2 = r.screwMotor2;
-		this.armMotor = r.armMotor
+		this.armMotor = r.armMotor;
 	}
 	private void wait(double waitTime) {
 		Timer.delay(waitTime); 
@@ -98,7 +102,7 @@ public class Auto {
 		double armTime = Timer.getFPGATimestamp();
 		while (true) {
 			if (!isAutonomous() || !isEnabled()) return;
-			boolean maxArmLimit = limit4.get();
+			boolean maxArmLimit = limit3.get();
 			if (armTime + second > Timer.getFPGATimestamp()) {
 				armMotor.set(Defines.ARM_SPEED);
 				leftArmWheel.set(Relay.Value.kForward);
@@ -160,3 +164,4 @@ public class Auto {
 		}
 	}
 }
+

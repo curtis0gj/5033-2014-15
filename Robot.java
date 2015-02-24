@@ -64,7 +64,7 @@ public class Robot extends SampleRobot {
 	}
 	public void autonomous() {
 		autoMethod = (Defines.Autos) autoChooser.getSelected();
-		Auto.run(this, autoMethod);
+		auto.run(this, autoMethod);
 	}
 	public void operatorControl() {
 		while (isOperatorControl() && isEnabled()) {

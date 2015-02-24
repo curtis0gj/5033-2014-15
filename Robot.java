@@ -33,7 +33,7 @@ public class Robot extends SampleRobot {
 	public double x = 0;
 	public SendableChooser autoChooser;
 	public Defines.Autos autoMethod;
-	public Auto auto; //PUBLIC OR DOES IT MATTER?
+	public Auto auto;
 	
 	public Robot() {
 		chassis = new RobotDrive(0, 1);

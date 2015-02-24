@@ -120,7 +120,7 @@ public class Auto {
 			Timer.delay(0.02);
 		}
 	}
-	public void run(AUTOS autoMode) {
+	public void run(Autos autoMode) {
 		switch(autoMode) {
 			case AUTO_MOVE_TO_ZONE:
 				forwardDrive(3000);

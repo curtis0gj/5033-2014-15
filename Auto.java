@@ -1,5 +1,7 @@
 package org.usfirst.frc.team5033.robot;
 
+import org.usfirst.frc.team5033.robot.Defines.Autos;
+
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Gyro;
@@ -45,7 +47,7 @@ public class Auto {
 		screwMotor1.set(Defines.SCREW_OFF);
 		screwMotor2.set(Defines.SCREW_OFF);
 	}
-	private void angleError(double setpointDegressZeroToThreeSixty, double experimentalDegrees) {
+	private double angleError(double setpointDegressZeroToThreeSixty, double experimentalDegrees) {
 		double err = setpointDegressZeroToThreeSixty - experimentalDegrees; // 0 TO 360!
 		if(err < -180) {
 			err += 360;
@@ -56,11 +58,11 @@ public class Auto {
 	}
 	double kp_rotate = 0.01;
 	double MAX_ERROR = 5;
-	private void turn(double degree) {
+	private void turn(double deg) {
 		reset();
 		while(true) {
 			double deltaAngle = angleError(deg, gyro.getAngle());
-			if(Math.abs(degree - deltaAngle) < MAX_ERROR) {
+			if(Math.abs(deg - deltaAngle) < MAX_ERROR) {
 				break;
 			} else {
 				chassis.arcadeDrive(0, deltaAngle * kp_rotate);
@@ -74,7 +76,7 @@ public class Auto {
 		while (true) {
 			double distance = encoder.get();
 			double angle = gyro.getAngle();
-			if (!isAutonomous() || !isEnabled()) return;
+			if (!robot.isAutonomous() || !robot.isEnabled()) return;
 			chassis.arcadeDrive(-0.25, angle * kP);
 			//chassis.drive(-0.40, 0);
 			if (distance < -distanceToGo) {
@@ -87,7 +89,7 @@ public class Auto {
 	private void liftBin(double second) {
 		double screwTime = Timer.getFPGATimestamp();
 		while (true) {
-			if (!isAutonomous() || !isEnabled()) return;
+			if (!robot.isAutonomous() || !robot.isEnabled()) return;
 			if (screwTime + second > Timer.getFPGATimestamp()) {
 				screwMotor1.set(Defines.SCREW_SPEED);
 				screwMotor2.set(Defines.SCREW_SPEED);
@@ -101,7 +103,7 @@ public class Auto {
 	private void closeArms(double second) {
 		double armTime = Timer.getFPGATimestamp();
 		while (true) {
-			if (!isAutonomous() || !isEnabled()) return;
+			if (!robot.isAutonomous() || !robot.isEnabled()) return;
 			boolean maxArmLimit = limit3.get();
 			if (armTime + second > Timer.getFPGATimestamp()) {
 				armMotor.set(Defines.ARM_SPEED);
@@ -121,7 +123,7 @@ public class Auto {
 		}
 	}
 	public void run(Autos autoMode) {
-		switch(autoMode) {
+		switch (autoMode) {
 			case AUTO_MOVE_TO_ZONE:
 				forwardDrive(3000);
 				break;

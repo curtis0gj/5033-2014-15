@@ -121,7 +121,7 @@ public class Auto {
 		}
 	}
 	public void run(AUTOS autoMode) {
-		switch (autoMode) {
+		switch(autoMode) {
 			case AUTO_MOVE_TO_ZONE:
 				forwardDrive(3000);
 				break;

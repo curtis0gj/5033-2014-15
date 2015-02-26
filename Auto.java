@@ -65,7 +65,7 @@ public class Auto {
 			if(Math.abs(deg - deltaAngle) < MAX_ERROR) {
 				break;
 			} else {
-				chassis.arcadeDrive(0, deltaAngle * kp_rotate);
+				chassis.arcadeDrive(-0.60, deltaAngle * kp_rotate);
 			}
 			Timer.delay(0.02);
 		}
@@ -77,8 +77,7 @@ public class Auto {
 			double distance = encoder.get();
 			double angle = gyro.getAngle();
 			if (!robot.isAutonomous() || !robot.isEnabled()) return;
-			chassis.arcadeDrive(-0.25, angle * kP);
-			//chassis.drive(-0.40, 0);
+			chassis.arcadeDrive(-0.60, angle * kP);
 			if (distance < -distanceToGo) {
 				reset();
 				return;
@@ -125,43 +124,43 @@ public class Auto {
 	public void run(Autos autoMode) {
 		switch (autoMode) {
 			case AUTO_MOVE_TO_ZONE:
-				forwardDrive(3000);
+				forwardDrive(-3000);
 				break;
 			case AUTO_GRAB_ONE_BIN_RED_SIDE:
 				liftBin(3.5);
-				wait(0.5);
+				//wait(0.5);
 				turn(90); //COULD 90 OR 180!
-				wait(0.5);
-				forwardDrive(2000);
+				//wait(0.5);
+				forwardDrive(-2000);
 				break;
 			case AUTO_GRAB_ONE_BIN_BLUE_SIDE:
 				liftBin(3.5);
-				wait(0.5);
+				//wait(0.5);
 				turn(180);  //COULD 90 OR 180!
-				wait(0.5);
-				forwardDrive(2000);
+				//wait(0.5);
+				forwardDrive(-2000);
 				break;
 			case AUTO_GRAB_TWO_BINS_RED_SIDE:
 				liftBin(3.5);
-				wait(0.5);
-				forwardDrive(450);
-				wait(0.5);
+				//wait(0.5);
+				forwardDrive(-450);
+				//wait(0.5);
 				closeArms(2);
-				wait(0.5);
+				//wait(0.5);
 				turn(90);  //COULD BE 90 OR 180!
-				wait(0.5);
-				forwardDrive(2000);
+				//wait(0.5);
+				forwardDrive(-2000);
 				break;
 			case AUTO_GRAB_TWO_BINS_BLUE_SIDE:
 				liftBin(3.5);
-				wait(0.5);
-				forwardDrive(450);
-				wait(0.5);
+				//wait(0.5);
+				forwardDrive(-450);
+				//wait(0.5);
 				closeArms(2);
-				wait(0.5);
+				//wait(0.5);
 				turn(180); //COULD BE 90 OR 180!
-				wait(0.5);
-				forwardDrive(2000);
+				//wait(0.5);
+				forwardDrive(-2000);
 				break;
 		}
 	}

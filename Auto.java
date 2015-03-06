@@ -78,7 +78,7 @@ public class Auto {
 			double angle = gyro.getAngle();
 			if (!robot.isAutonomous() || !robot.isEnabled()) return;
 			chassis.arcadeDrive(-0.60, angle * kP);
-			if (distance < -distanceToGo) {
+			if (distance < -distanceToGo) { // Could be > 
 				reset();
 				return;
 			}
@@ -94,7 +94,7 @@ public class Auto {
 				screwMotor2.set(Defines.SCREW_SPEED);
 			} else {
 				reset();
-				break;
+				return;
 			}
 			Timer.delay(0.02);
 		}
@@ -116,7 +116,7 @@ public class Auto {
 				break;
 			} else {
 				reset();
-				break;
+				return;
 			}
 			Timer.delay(0.02);
 		}

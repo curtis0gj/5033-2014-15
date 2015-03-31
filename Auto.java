@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Auto {
 	Robot robot;
@@ -63,11 +64,25 @@ public class Auto {
 		while(true) {
 			double deltaAngle = angleError(deg, gyro.getAngle());
 			if(Math.abs(deg - deltaAngle) < MAX_ERROR) {
-				break;
+				reset();
+				return;
 			} else {
-				chassis.arcadeDrive(-0.60, deltaAngle * kp_rotate);
+				chassis.arcadeDrive(-0.30, deltaAngle * kp_rotate);
 			}
 			Timer.delay(0.02);
+		}
+	}
+	private void basicTurn(double desiredAngle) {
+		reset();
+		while(true) {
+			if (!robot.isAutonomous() || !robot.isEnabled()) return;
+			double angle = gyro.getAngle();
+			SmartDashboard.putNumber("TurningAngle", angle);
+			chassis.arcadeDrive(-0.40, 1);
+			if(angle > desiredAngle) {
+				reset();
+				break;
+			}
 		}
 	}
 	double kP = 0.035;
@@ -77,8 +92,10 @@ public class Auto {
 			double distance = encoder.get();
 			double angle = gyro.getAngle();
 			if (!robot.isAutonomous() || !robot.isEnabled()) return;
-			chassis.arcadeDrive(-0.60, angle * kP);
-			if (distance < -distanceToGo) { // Could be > 
+			SmartDashboard.putNumber("ForwardDistance", distance);
+			chassis.arcadeDrive(-0.30, angle * kP);
+			//chassis.drive(-0.40, 0);
+			if (distance < -distanceToGo) { //< or > 
 				reset();
 				return;
 			}
@@ -89,6 +106,7 @@ public class Auto {
 		double screwTime = Timer.getFPGATimestamp();
 		while (true) {
 			if (!robot.isAutonomous() || !robot.isEnabled()) return;
+			SmartDashboard.putNumber("LiftBinTimer", screwTime);
 			if (screwTime + second > Timer.getFPGATimestamp()) {
 				screwMotor1.set(Defines.SCREW_SPEED);
 				screwMotor2.set(Defines.SCREW_SPEED);
@@ -104,6 +122,8 @@ public class Auto {
 		while (true) {
 			if (!robot.isAutonomous() || !robot.isEnabled()) return;
 			boolean maxArmLimit = limit3.get();
+			SmartDashboard.putNumber("ArmClosingTime", armTime);
+			SmartDashboard.putBoolean("ClosingArmSwitch", maxArmLimit);
 			if (armTime + second > Timer.getFPGATimestamp()) {
 				armMotor.set(Defines.ARM_SPEED);
 				leftArmWheel.set(Relay.Value.kForward);
@@ -121,6 +141,11 @@ public class Auto {
 			Timer.delay(0.02);
 		}
 	}
+	private void stopArms() {
+		armMotor.set(Defines.ARM_OFF);
+		leftArmWheel.set(Relay.Value.kOff);
+		rightArmWheel.set(Relay.Value.kOff);
+	}
 	public void run(Autos autoMode) {
 		switch (autoMode) {
 			case AUTO_MOVE_TO_ZONE:
@@ -132,6 +157,7 @@ public class Auto {
 				turn(90); //COULD 90 OR 180!
 				//wait(0.5);
 				forwardDrive(-2000);
+				stopArms();
 				break;
 			case AUTO_GRAB_ONE_BIN_BLUE_SIDE:
 				liftBin(3.5);
@@ -139,6 +165,7 @@ public class Auto {
 				turn(180);  //COULD 90 OR 180!
 				//wait(0.5);
 				forwardDrive(-2000);
+				stopArms();
 				break;
 			case AUTO_GRAB_TWO_BINS_RED_SIDE:
 				liftBin(3.5);
@@ -150,6 +177,7 @@ public class Auto {
 				turn(90);  //COULD BE 90 OR 180!
 				//wait(0.5);
 				forwardDrive(-2000);
+				stopArms();
 				break;
 			case AUTO_GRAB_TWO_BINS_BLUE_SIDE:
 				liftBin(3.5);
@@ -161,6 +189,7 @@ public class Auto {
 				turn(180); //COULD BE 90 OR 180!
 				//wait(0.5);
 				forwardDrive(-2000);
+				stopArms();
 				break;
 		}
 	}

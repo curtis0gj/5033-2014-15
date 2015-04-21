@@ -9,6 +9,7 @@ public class Robot extends SampleRobot {
 	public RobotDrive chassis;
 	public Joystick stick;
 	public Joystick xbox;
+	public 
 	
 	public Robot() {
 		chassis = new RobotDrive(0, 1);
@@ -21,6 +22,8 @@ public class Robot extends SampleRobot {
 	}
 	public void operatorControl() {
 		while (isOperatorControl() && isEnabled()) {
+			chassis.drive(stick.x, stick.y);
+			
 			Timer.delay(0.02);
 		}
 	}
